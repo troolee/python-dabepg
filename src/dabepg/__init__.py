@@ -25,6 +25,9 @@ import datetime
 import locale
 import re
 from dateutil.tz import tzlocal
+import logging
+
+logger = logging.getLogger('dabepg')
 
 MAX_SHORTCRID = 16777215
 TRIGGER_PATTERN = '[0-9a-fA-F]{8}'
@@ -339,7 +342,9 @@ class Text:
     
     def __init__(self, text, max_length, locale=locale.getdefaultlocale()):
         if not isinstance(text, basestring): raise ValueError('text must be of a basestring subtype, not %s: %s', type(text), text)
-        if len(text) > max_length: raise ValueError('text length exceeds the maximum: %d>%d' % (len(text), max_length))
+        if len(text) > max_length: 
+            #raise ValueError('text length exceeds the maximum: %d>%d' % (len(text), max_length))
+            logger.warning('text length exceeds the maximum: %d>%d : %s' % (len(text), max_length, text))
         self.max_length = max_length
         self.text = text
         
