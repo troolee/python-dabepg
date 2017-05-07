@@ -648,7 +648,7 @@ class CData:
             raise ValueError('element data length exceeds the maximum allowed by the extended element length (24bits): %s > %s' + datalength + " > " + (1<<24))
         data = bits[start:start+(datalength * 8)]
         
-        return CData(data.tostring())
+        return CData(data.tobytes().decode('latin-1'))
 
 def marshall(obj):
     """Marshalls an :class:Epg or :class:ServiceInfo to its binary document"""    
